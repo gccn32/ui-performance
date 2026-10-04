@@ -3,7 +3,7 @@
   "version": 1,
   "cli": {
     "packageManager": "npm",
-    "analytics": "a48e06e9-9bfb-4968-9604-7d2e9070dfe1"
+    "analytics": "7abff35b-60d9-4215-bb8c-93412bd39863"
   },
   "newProjectRoot": "projects",
   "projects": {
@@ -30,7 +30,9 @@
                 "input": "public"
               }
             ],
-            "styles": ["src/styles.scss"]
+            "styles": [
+              "src/styles.scss"
+            ]
           },
           "configurations": {
             "production": {
@@ -58,7 +60,6 @@
         },
         "serve": {
           "builder": "@angular/build:dev-server",
-          "options": { "open": true },
           "configurations": {
             "production": {
               "buildTarget": "angular-hello-world:build:production"
