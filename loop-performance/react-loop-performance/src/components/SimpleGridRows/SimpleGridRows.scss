@@ -1,0 +1,32 @@
+.grid-row {
+  display: flex;
+  margin: 10px 0;
+  content-visibility: auto;
+  height: 20px;
+  width: 100%;
+}
+
+.grid-row-header {
+  font-weight: bold;
+}
+
+.grid-data-id {
+  padding: 0 10px;
+  width: 40px;
+  border-right: 1px silver solid;
+  text-align: right;
+}
+
+.grid-data-caption {
+  width: 400px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  padding: 0 10px;
+  border-right: 1px silver solid;
+}
+
+.grid-data-quantity {
+  padding: 0 10px;
+  width: 50px;
+}
