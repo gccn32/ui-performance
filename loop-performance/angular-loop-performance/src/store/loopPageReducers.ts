@@ -1,4 +1,3 @@
-
 import { createReducer, on } from '@ngrx/store';
 import { GridElement } from '../model/GridElement';
 import { Sorting } from '../model/Sorting';
@@ -22,23 +21,32 @@ const initialState: LoopPageState = {
   sorting: Sorting.Asc,
 };
 
-function shuffleGridData<T>(array: T[]) {
+function mulberry32(seed: number) {
+  return function (): number {
+    let t = (seed += 0x6d2b79f5);
+    t = Math.imul(t ^ (t >>> 15), t | 1);
+    t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+}
+
+function shuffleGridData<T>(array: T[], seed: number) {
+  const random = mulberry32(seed);
   for (let i = array.length - 1; i >= 1; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
+    const j = Math.floor(random() * (i + 1));
     [array[i], array[j]] = [array[j], array[i]];
   }
   return array;
 }
 const comparator = new Intl.Collator().compare;
-function sortGridData(gridData: GridElement[], sorting: Sorting): GridElement[] {
+function sortGridData(gridData: GridElement[], sorting: Sorting, seed?: number): GridElement[] {
   if (sorting === Sorting.Asc) {
-    gridData.sort((a, b) => comparator(a.caption, b.caption));
+    return gridData.toSorted((a, b) => comparator(a.caption, b.caption));
   } else if (sorting === Sorting.Desc) {
-    gridData.sort((a, b) => -comparator(a.caption, b.caption));
+    return gridData.toSorted((a, b) => -comparator(a.caption, b.caption));
   } else {
-    gridData = shuffleGridData(gridData);
+    return shuffleGridData([...gridData], seed!);
   }
-  return gridData;
 }
 
 export const loopPageReducer = createReducer(
@@ -47,10 +55,10 @@ export const loopPageReducer = createReducer(
     ...state,
     counter: state.counter + 1,
   })),
-  on(sortGridAction, (state, { sorting }) => ({
+  on(sortGridAction, (state, { sorting, seed }) => ({
     ...state,
     sorting,
-    grid: sortGridData([...state.grid], sorting),
+    grid: sortGridData(state.grid, sorting, seed),
   })),
   on(setGridDataAction, (state, { grid }) => ({
     ...state,

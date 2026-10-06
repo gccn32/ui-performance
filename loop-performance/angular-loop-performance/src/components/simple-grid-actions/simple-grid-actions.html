@@ -1,0 +1,34 @@
+<fieldset class="simple-grid-actions-field">
+  <button
+    [disabled]="sorting() === SortingType.Asc"
+    class="simple-grid-actions-button"
+    [class.active]="sorting() === SortingType.Asc"
+    (click)="sortAsc()"
+  >
+    Ascending
+  </button>
+  <button
+    [disabled]="sorting() === SortingType.Desc"
+    class="simple-grid-actions-button"
+    [class.active]="sorting() === SortingType.Desc"
+    (click)="sortDesc()"
+  >
+    Descending
+  </button>
+  <button
+    class="simple-grid-actions-button"
+    [class.active]="sorting() === SortingType.Shuffle"
+    (click)="shuffle()"
+  >
+    Shuffle
+  </button>
+  <button class="simple-grid-actions-button" (click)="increaseQuantity()">
+    Increase Quantity Field
+  </button>
+  <button class="simple-grid-actions-button" (click)="decreaseQuantity()">
+    Decrease Quantity Field
+  </button>
+  <button class="simple-grid-actions-button" (click)="showHeader.set(!showHeader())">
+    {{ showHeader() ? 'Hide Header' : 'Show Header' }}
+  </button>
+</fieldset>

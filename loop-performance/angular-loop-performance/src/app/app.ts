@@ -1,12 +1,13 @@
-import { Component, signal } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Component } from '@angular/core';
+import { Nav } from '../components/nav/nav';
+import { SimpleCounter } from '../components/simple-counter/simple-counter';
+import { SimpleGrid } from '../components/simple-grid/simple-grid';
 
 @Component({
-  imports: [RouterOutlet],
+  imports: [Nav, SimpleCounter, SimpleGrid],
   selector: 'app-root',
   styleUrl: './app.scss',
   templateUrl: './app.html',
 })
 export class App {
-  protected readonly title = signal('angular-loop-performance');
 }

@@ -1,0 +1,18 @@
+<alp-simple-grid-actions [(showHeader)]="showHeader" />
+
+<ul class="grid">
+  @if (showHeader()) {
+    <li class="grid-row grid-row-header">
+      <div class="grid-data-id">ID</div>
+      <div class="grid-data-caption">Caption</div>
+      <div class="grid-data-quantity">Quantity</div>
+    </li>
+  }
+  @for (row of gridData | async; track row.id) {
+    <li class="grid-row">
+      <div class="grid-data-id">{{ row.index }}</div>
+      <div class="grid-data-caption">{{ row.caption }}</div>
+      <div class="grid-data-quantity">{{ row.quantity }}</div>
+    </li>
+  }
+</ul>
