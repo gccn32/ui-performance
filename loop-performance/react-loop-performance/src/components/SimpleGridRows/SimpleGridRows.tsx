@@ -18,8 +18,5 @@ function SimpleGridRowsComponent({ gridData }: SimpleGridRowsComponentProps) {
     </>
   );
 }
-const SimpleGridRows = memo(
-  SimpleGridRowsComponent,
-  (prev, next) => prev.gridData === next.gridData,
-);
+const SimpleGridRows = memo(SimpleGridRowsComponent);
 export default SimpleGridRows;

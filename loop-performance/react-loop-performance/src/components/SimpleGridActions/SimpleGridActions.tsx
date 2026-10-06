@@ -1,4 +1,4 @@
-import { memo, useTransition } from 'react';
+import { memo } from 'react';
 import { Sorting } from '../../model/Sorting';
 import { useAppDispatch, useAppSelector } from '../../store';
 import {
@@ -16,57 +16,38 @@ interface SimpleGridActionsParams {
 function SimpleGridActionsComponent({ showHeader, setShowHeader }: SimpleGridActionsParams) {
   const sorting = useAppSelector(selectSorting);
   const dispatch = useAppDispatch();
-  const [isPending, startTransition] = useTransition();
 
-  const handleSort = (sortType: Sorting) => {
-    startTransition(() => {
-      dispatch(sortGridAction(sortType));
-    });
-  };
-  const handleIncreaseQuantity = () => {
-    startTransition(() => {
-      dispatch(increaseQuantityInGridAction());
-    });
-  };
-  const handleDecreaseQuantity = () => {
-    startTransition(() => {
-      dispatch(decreaseQuantityInGridAction());
-    });
-  };
   return (
     <fieldset className="simple-grid-actions-field">
       <button
-        disabled={sorting === Sorting.Asc || isPending}
+        disabled={sorting === Sorting.Asc}
         className={`simple-grid-actions-button ${sorting === Sorting.Asc ? 'active' : ''}`}
-        onClick={() => handleSort(Sorting.Asc)}
+        onClick={() => dispatch(sortGridAction({ sorting: Sorting.Asc, seed: Date.now() }))}
       >
         Ascending
       </button>
       <button
-        disabled={sorting === Sorting.Desc || isPending}
+        disabled={sorting === Sorting.Desc}
         className={`simple-grid-actions-button ${sorting === Sorting.Desc ? 'active' : ''}`}
-        onClick={() => handleSort(Sorting.Desc)}
+        onClick={() => dispatch(sortGridAction({ sorting: Sorting.Desc, seed: Date.now() }))}
       >
         Descending
       </button>
       <button
-        disabled={sorting === Sorting.Shuffle || isPending}
         className={`simple-grid-actions-button ${sorting === Sorting.Shuffle ? 'active' : ''}`}
-        onClick={() => handleSort(Sorting.Shuffle)}
+        onClick={() => dispatch(sortGridAction({ sorting: Sorting.Shuffle, seed: Date.now() }))}
       >
         Shuffle
       </button>
       <button
         className="simple-grid-actions-button"
-        disabled={isPending}
-        onClick={handleIncreaseQuantity}
+        onClick={() => dispatch(increaseQuantityInGridAction())}
       >
         Increase Quantity Field
       </button>
       <button
         className="simple-grid-actions-button"
-        disabled={isPending}
-        onClick={handleDecreaseQuantity}
+        onClick={() => dispatch(decreaseQuantityInGridAction())}
       >
         Decrease Quantity Field
       </button>

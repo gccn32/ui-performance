@@ -10,7 +10,7 @@ export const store = configureStore({
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: false,
-      // immutableCheck: false,
+      immutableCheck: false,
     }).concat(listenerMiddleware.middleware),
 });
 
