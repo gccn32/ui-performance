@@ -53,6 +53,9 @@ export function loopPageReducer(state = initialState, action: UnknownAction): Lo
   if (incrementCounterAction.match(action)) {
     return { ...state, counter: state.counter + 1 };
   } else if (sortGridAction.match(action)) {
+    if (state.sorting === action.payload.sorting && state.sorting !== Sorting.Shuffle) {
+      return state;
+    }
     return {
       ...state,
       sorting: action.payload.sorting,

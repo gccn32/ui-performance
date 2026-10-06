@@ -9,10 +9,6 @@ export const router = createBrowserRouter([
     path: '/',
     children: [
       {
-        index: true,
-        loader: () => redirect(`/${navLinksValues[0]}/`),
-      },
-      {
         path: '/:quantity/',
         Component: App,
         loader: ({ params: { quantity } }) => {
@@ -25,6 +21,10 @@ export const router = createBrowserRouter([
             }
           }
         },
+      },
+      {
+        path: '*',
+        loader: () => redirect(`/${navLinksValues[0]}/`),
       },
     ],
   },

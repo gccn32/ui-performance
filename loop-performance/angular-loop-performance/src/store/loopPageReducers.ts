@@ -55,11 +55,16 @@ export const loopPageReducer = createReducer(
     ...state,
     counter: state.counter + 1,
   })),
-  on(sortGridAction, (state, { sorting, seed }) => ({
-    ...state,
-    sorting,
-    grid: sortGridData(state.grid, sorting, seed),
-  })),
+  on(sortGridAction, (state, { sorting, seed }) => {
+    if (state.sorting === sorting && state.sorting !== Sorting.Shuffle) {
+      return state;
+    }
+    return {
+      ...state,
+      sorting,
+      grid: sortGridData(state.grid, sorting, seed),
+    };
+  }),
   on(setGridDataAction, (state, { grid, seed }) => ({
     ...state,
     grid: sortGridData(grid, state.sorting, seed),
