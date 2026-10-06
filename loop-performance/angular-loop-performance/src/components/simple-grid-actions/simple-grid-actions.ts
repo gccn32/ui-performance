@@ -18,7 +18,7 @@ export class SimpleGridActions {
   private store = inject(Store);
   SortingType = Sorting;
   sorting = this.store.selectSignal(selectSorting);
-  showHeader = model<boolean>();
+  showHeader = model<boolean>(true);
 
   sortAsc() {
     this.store.dispatch(sortGridAction({ sorting: Sorting.Asc }));

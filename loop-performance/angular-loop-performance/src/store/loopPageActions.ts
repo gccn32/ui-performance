@@ -4,7 +4,7 @@ import { Sorting } from '../model/Sorting';
 
 export const setGridDataAction = createAction(
   'setGridDataAction',
-  props<{ grid: GridElement[] }>(),
+  props<{ grid: GridElement[], seed: number }>(),
 );
 export const sortGridAction = createAction('SortGridAction', props<{ sorting: Sorting, seed?: number }>());
 export const incrementCounterAction = createAction('IncrementCounterAction');

@@ -20,7 +20,7 @@ export class LoopPageEffects {
       map((quantity) => parseInt(quantity)),
       map((quantity) => (navLinksValues.includes(quantity) ? quantity : navLinksValues[0])),
       map((gridSize) => {
-        return setGridDataAction({ grid: gridElements.slice(0, gridSize) });
+        return setGridDataAction({ grid: gridElements.slice(0, gridSize), seed: Date.now() });
       }),
     ),
   );

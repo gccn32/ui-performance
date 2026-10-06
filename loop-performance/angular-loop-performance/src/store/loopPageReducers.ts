@@ -43,7 +43,7 @@ function sortGridData(gridData: GridElement[], sorting: Sorting, seed?: number):
   if (sorting === Sorting.Asc) {
     return gridData.toSorted((a, b) => comparator(a.caption, b.caption));
   } else if (sorting === Sorting.Desc) {
-    return gridData.toSorted((a, b) => -comparator(a.caption, b.caption));
+    return gridData.toSorted((a, b) => comparator(b.caption, a.caption));
   } else {
     return shuffleGridData([...gridData], seed!);
   }
@@ -60,9 +60,9 @@ export const loopPageReducer = createReducer(
     sorting,
     grid: sortGridData(state.grid, sorting, seed),
   })),
-  on(setGridDataAction, (state, { grid }) => ({
+  on(setGridDataAction, (state, { grid, seed }) => ({
     ...state,
-    grid: sortGridData(grid, state.sorting),
+    grid: sortGridData(grid, state.sorting, seed),
   })),
   on(increaseQuantityInGridAction, (state) => ({
     ...state,
