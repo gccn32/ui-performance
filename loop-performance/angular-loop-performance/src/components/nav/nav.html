@@ -1,7 +1,7 @@
-<ul class="menu-navigation">
+<menu class="menu-navigation">
   @for (link of navValue(); track link) {
     <li class="menu-navigation-item">
       <a class="menu-navigation-link" routerLinkActive="active" [routerLink]="`/${link}`">{{ link }} lines</a>
     </li>
   }
-</ul>
+</menu>
