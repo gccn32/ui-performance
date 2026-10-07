@@ -1,0 +1,21 @@
+.menu-navigation {
+  list-style-type: none;
+  display: flex;
+  margin: 0 auto 10px;
+  padding: 0;
+}
+.menu-navigation-item {
+  display: block;
+  padding: 10px;
+}
+.menu-navigation-link {
+  color: blue;
+  &.active {
+    pointer-events: none;
+    color: navy;
+  }
+
+  &:active {
+    color: magenta;
+  }
+}
