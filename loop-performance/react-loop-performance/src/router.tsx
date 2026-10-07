@@ -7,9 +7,13 @@ import { setGridRowsQuantityAction } from './store/loopPageActions';
 export const router = createBrowserRouter([
   {
     path: '/',
+    loader: () => redirect(`/${navLinksValues[0]}/`),
+  },
+  {
+    path: '/',
     children: [
       {
-        path: '/:quantity/',
+        path: ':quantity/',
         Component: App,
         loader: ({ params: { quantity } }) => {
           if (quantity) {
