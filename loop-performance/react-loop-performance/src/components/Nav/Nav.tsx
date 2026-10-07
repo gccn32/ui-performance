@@ -4,7 +4,7 @@ import { navLinksValues } from '../../model/constants';
 
 function Nav() {
   return (
-    <ul className="menu-navigation">
+    <menu className="menu-navigation">
       {navLinksValues.map((e) => (
         <li className="menu-navigation-item" key={e}>
           <NavLink className="menu-navigation-link" to={`/${e}/`}>
@@ -12,7 +12,7 @@ function Nav() {
           </NavLink>
         </li>
       ))}
-    </ul>
+    </menu>
   );
 }
 
