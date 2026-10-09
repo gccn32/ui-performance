@@ -2,6 +2,7 @@ import { createDom } from '../../lib/createDom';
 import { navLinksValues } from '../../model/constants';
 import { navigate, subscribeNavigation } from '../../lib/router';
 import './nav.scss';
+import { on } from '../../lib/click';
 
 class Nav extends HTMLElement {
   private createLink(navLinkValue: number): HTMLAnchorElement {
@@ -11,10 +12,12 @@ class Nav extends HTMLElement {
     subscribeNavigation(() =>
       href === location.pathname ? link.classList.add('active') : link.classList.remove('active')
     );
-    link.addEventListener('click', (event: Event) => {
+
+    on(link, 'click', (event) => {
       event.preventDefault();
       navigate(href);
     });
+
     return link;
   }
 

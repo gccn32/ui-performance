@@ -20,7 +20,7 @@ class SimpleGrid extends HTMLElement {
       createDom('div', 'grid-data-caption', 'Caption'),
       createDom('div', 'grid-data-quantity', 'Quantity'),
     ];
-    return createDom('div', ['grid-row', 'grid-row-header'], headerCells);
+    return createDom('ul', 'grid', createDom('li', ['grid-row', 'grid-row-header'], headerCells));
   }
 
   private generateRow(item: GridElement): HTMLElement {
