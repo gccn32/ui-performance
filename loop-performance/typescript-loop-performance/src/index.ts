@@ -2,7 +2,7 @@ import './components/nav/nav';
 import './components/simple-counter/simple-counter';
 import './components/simple-grid/simple-grid';
 import './main.scss';
-import { initRouting } from './router';
+import { router } from './router';
 
 const root = document.getElementById('root')!;
 const nav = document.createElement('tlp-nav');
@@ -12,4 +12,4 @@ root.append(simpleCounter);
 const simpleGrid = document.createElement('tlp-simple-grid');
 root.append(simpleGrid);
 
-initRouting();
+router.start();

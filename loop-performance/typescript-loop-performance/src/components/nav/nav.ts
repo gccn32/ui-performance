@@ -1,20 +1,17 @@
-import { createDom } from '../../lib/createDom';
+import { createDom, on, toggleClassName } from '../../lib/dom';
 import { navLinksValues } from '../../model/constants';
 import { navigate, subscribeNavigation } from '../../lib/router';
 import './nav.scss';
-import { on } from '../../lib/click';
 
 class Nav extends HTMLElement {
   private createLink(navLinkValue: number): HTMLAnchorElement {
     const link = createDom('a', 'menu-navigation-link', `${navLinkValue} lines`);
     const href = `/${navLinkValue}/`;
     link.href = href;
-    subscribeNavigation(() =>
-      href === location.pathname ? link.classList.add('active') : link.classList.remove('active')
-    );
+    subscribeNavigation((pathname) => toggleClassName(link, 'active', href === pathname));
 
-    on(link, 'click', (event) => {
-      event.preventDefault();
+    on(link, 'click', (e) => {
+      e.preventDefault();
       navigate(href);
     });
 

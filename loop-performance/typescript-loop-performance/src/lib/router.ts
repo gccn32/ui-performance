@@ -1,23 +1,29 @@
-import { navLinksValues } from '../model/constants';
+type Listener = (pathname: string) => any;
+type Route = { route: string | RegExp; handler: Listener };
 
-type RouterListener = () => void;
-const listeners: RouterListener[] = [];
+let routes: Route[] = [];
+const listener: Listener[] = [];
 
-const validatePath = (path: string) => navLinksValues.some((e) => `/${e}/` === path);
-
-export const subscribeNavigation = (l: RouterListener) => listeners.push(l);
-
-export function triggerNavigation() {
-  if (!validatePath(location.pathname)) {
-    return navigate(`/${navLinksValues[0]}/`);
+function triggerNav() {
+  const pathname = location.pathname;
+  for (const r of routes) {
+    if (pathname === r.route || (r.route as RegExp)?.test(pathname)) {
+      r.handler(pathname);
+      break;
+    }
   }
-
-  listeners.forEach((l) => l());
+  listener.forEach((l) => l(pathname));
 }
+window.addEventListener('popstate', triggerNav);
 
-window.addEventListener('popstate', triggerNavigation);
+export const subscribeNavigation = (l: Listener) => listener.push(l);
+
+export const createRouter = (r: Route[]) => {
+  routes = r;
+  return { start: triggerNav };
+};
 
 export function navigate(path: string) {
   history.pushState({}, '', path);
-  triggerNavigation();
+  triggerNav();
 }

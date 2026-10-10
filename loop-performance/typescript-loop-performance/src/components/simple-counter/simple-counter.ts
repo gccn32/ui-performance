@@ -1,4 +1,4 @@
-import { createDom } from '../../lib/createDom';
+import { createDom, on } from '../../lib/dom';
 import { store } from '../../store';
 import { incrementCounterAction } from '../../store/loopPageActions';
 import { selectCounter } from '../../store/loopPageSelectors';
@@ -7,7 +7,7 @@ import './simple-counter.scss';
 class SimpleCounter extends HTMLElement {
   connectedCallback() {
     const button = createDom('button', '', 'Increment');
-    button.addEventListener('click', () => {
+    on(button, 'click', () => {
       store.dispatch(incrementCounterAction());
     });
 

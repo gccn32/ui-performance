@@ -1,7 +1,7 @@
 import './simple-grid.scss';
 import './../simple-grid-actions/simple-grid-actions';
 import type { SimpleGridActions } from './../simple-grid-actions/simple-grid-actions';
-import { createDom } from '../../lib/createDom';
+import { createDom } from '../../lib/dom';
 import type { GridElement } from '../../model/GridElement';
 import { store } from '../../store';
 import { selectGridData } from '../../store/loopPageSelectors';

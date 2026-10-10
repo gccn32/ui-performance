@@ -10,6 +10,13 @@ export function createDom<K extends keyof HTMLElementTagNameMap>(
   if (children != null)
     if (Array.isArray(children)) element.append(...(children as any[]));
     else element.append(children as any);
-
   return element;
+}
+
+export function on(element: HTMLElement, event: string, handler: (event: Event) => any) {
+  element.addEventListener(event, handler);
+}
+
+export function toggleClassName(element: HTMLElement, className: string, toggle: boolean = true) {
+  element.classList[toggle ? 'add' : 'remove'](className);
 }

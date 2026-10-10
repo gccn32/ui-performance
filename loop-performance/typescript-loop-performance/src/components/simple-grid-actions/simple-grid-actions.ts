@@ -7,9 +7,8 @@ import {
   sortGridAction,
 } from '../../store/loopPageActions';
 import { selectSorting } from '../../store/loopPageSelectors';
-import { createDom } from '../../lib/createDom';
+import { createDom, on, toggleClassName } from '../../lib/dom';
 
-const activeClassName = 'active';
 const buttonClassName = 'simple-grid-actions-button';
 
 export class SimpleGridActions extends HTMLElement {
@@ -17,28 +16,22 @@ export class SimpleGridActions extends HTMLElement {
 
   connectedCallback() {
     const sortAscButton = createDom('button', buttonClassName, 'Ascending');
-    sortAscButton.addEventListener('click', () =>
-      store.dispatch(sortGridAction({ sorting: Sorting.Asc, seed: Date.now() }))
-    );
+    on(sortAscButton, 'click', () => store.dispatch(sortGridAction({ sorting: Sorting.Asc, seed: Date.now() })));
 
     const sortDescButton = createDom('button', buttonClassName, 'Descending');
-    sortDescButton.addEventListener('click', () =>
-      store.dispatch(sortGridAction({ sorting: Sorting.Desc, seed: Date.now() }))
-    );
+    on(sortDescButton, 'click', () => store.dispatch(sortGridAction({ sorting: Sorting.Desc, seed: Date.now() })));
 
     const shuffleButton = createDom('button', buttonClassName, 'Shuffle');
-    shuffleButton.addEventListener('click', () =>
-      store.dispatch(sortGridAction({ sorting: Sorting.Shuffle, seed: Date.now() }))
-    );
+    on(shuffleButton, 'click', () => store.dispatch(sortGridAction({ sorting: Sorting.Shuffle, seed: Date.now() })));
 
     const increaseQuantityButton = createDom('button', buttonClassName, 'Increase Quantity Field');
-    increaseQuantityButton.addEventListener('click', () => store.dispatch(increaseQuantityInGridAction()));
+    on(increaseQuantityButton, 'click', () => store.dispatch(increaseQuantityInGridAction()));
 
     const decreaseQuantityButton = createDom('button', buttonClassName, 'Decrease Quantity Field');
-    decreaseQuantityButton.addEventListener('click', () => store.dispatch(decreaseQuantityInGridAction()));
+    on(decreaseQuantityButton, 'click', () => store.dispatch(decreaseQuantityInGridAction()));
 
     this.toggleHeader = createDom('button', buttonClassName, 'Show Header');
-    this.toggleHeader.addEventListener('click', () => this.dispatchEvent(new Event('toggleHeader')));
+    on(this.toggleHeader, 'click', () => this.dispatchEvent(new Event('toggleHeader')));
 
     const buttons = [
       { sorting: Sorting.Asc, button: sortAscButton },
@@ -48,13 +41,8 @@ export class SimpleGridActions extends HTMLElement {
 
     store.subscribe(selectSorting, (sorting: Sorting) => {
       buttons.forEach((e) => {
-        if (e.sorting !== sorting) {
-          e.button.classList.remove(activeClassName);
-          e.button.disabled = false;
-        } else {
-          e.button.classList.add(activeClassName);
-          e.button.disabled = sorting === Sorting.Asc || sorting === Sorting.Desc;
-        }
+        toggleClassName(e.button, 'active', e.sorting === sorting);
+        e.button.disabled = e.sorting == sorting && (sorting === Sorting.Asc || sorting === Sorting.Desc);
       });
     });
 
