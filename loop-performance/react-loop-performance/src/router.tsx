@@ -26,10 +26,10 @@ export const router = createBrowserRouter([
           }
         },
       },
-      {
-        path: '*',
-        loader: () => redirect(`/${navLinksValues[0]}/`),
-      },
     ],
+  },
+  {
+    path: '*',
+    loader: () => redirect(`/${navLinksValues[0]}/`),
   },
 ]);
